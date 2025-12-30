@@ -1,0 +1,47 @@
+\begin{tikzpicture}
+    \begin{axis}[
+        width=0.6\textwidth,
+        height=6cm,
+        xlabel={Время (итерации)},
+        ylabel={Энергия системы $E(t)$},
+        title={Циклы длины 2 при синхронном обновлении},
+        grid=major,
+        legend style={
+            at={(1.05,0.5)},
+            anchor=west,
+            draw=none,
+            font=\small,
+            cells={anchor=west},
+            legend columns=1
+        },
+        xmin=0, xmax=12,
+        ymin=0, ymax=6,
+        scale only axis,
+        ytick={1,2,3,4,5,6},
+        xtick={0,2,4,6,8,10,12},
+        ymajorgrids=true
+    ]
+        
+        % Колебания энергии
+        \addplot[red, thick, domain=0:12, samples=200] 
+            {2.5*sin(deg(2*pi*x/2)) + 3.5};
+        
+        % Состояния системы
+        \addplot[blue, thick, dashed, domain=0:12, samples=200] 
+            {1.5*sin(deg(2*pi*x/2 + 90)) + 2};
+        
+        % Маркеры состояний БЕЗ подписей
+        \addplot[only marks, mark=*, mark size=3, green!70!black] 
+            coordinates {(0,5) (2,2) (4,5) (6,2) (8,5) (10,2) (12,5)};
+        
+        \addplot[only marks, mark=square*, mark size=3, orange] 
+            coordinates {(1,2) (3,5) (5,2) (7,5) (9,2) (11,5)};
+        
+        \legend{Энергия $E(t)$, Состояние системы, Цикл A, Цикл B}
+        
+    \end{axis}
+    
+    % Надпись "Период" справа от графика
+    \node[text=black, font=\bfseries, align=left, anchor=west] 
+        at (10.0,4.5) {Период = 2 итерации};
+\end{tikzpicture}

@@ -1,0 +1,69 @@
+\begin{tikzpicture}
+    % Основной график
+    \begin{axis}[
+        name=mainplot,
+        width=0.75\textwidth,
+        height=4.5cm,
+        view={0}{90},
+        xlabel={Координата X},
+        ylabel={Координата Y},
+        grid=major,
+        colormap/viridis,
+        point meta min=-2,
+        point meta max=2,
+        at={(0,0)}
+    ]
+        
+        % Поверхность энергетического ландшафта
+        \addplot3[
+            surf,
+            domain=-3:3,
+            domain y=-3:3,
+            samples=25,
+            opacity=0.7
+        ] {x^4 - 2*x^2 + y^4 - 2*y^2 + 0.5*sin(deg(x*y))};
+        
+        % Локальные минимумы
+        \addplot3[
+            only marks, 
+            mark=*, 
+            mark size=3,
+            red,
+            fill=red
+        ] coordinates {
+            (-1.4,-1.4, {(-1.4)^4 - 2*(-1.4)^2 + (-1.4)^4 - 2*(-1.4)^2 + 0.5*sin(deg(-1.4*-1.4))})
+            (1.4,1.4, {(1.4)^4 - 2*(1.4)^2 + (1.4)^4 - 2*(1.4)^2 + 0.5*sin(deg(1.4*1.4))})
+            (-1.4,1.4, {(-1.4)^4 - 2*(-1.4)^2 + (1.4)^4 - 2*(1.4)^2 + 0.5*sin(deg(-1.4*1.4))})
+            (1.4,-1.4, {(1.4)^4 - 2*(1.4)^2 + (-1.4)^4 - 2*(-1.4)^2 + 0.5*sin(deg(1.4*-1.4))})
+        };
+        
+    \end{axis}
+    
+    % Цветовая шкала под графиком
+    \begin{axis}[
+        at={(mainplot.below south west)},
+        anchor=north west,
+        width=0.75\textwidth,
+        height=0.8cm,
+        scale only axis,
+        hide axis,
+        colormap/viridis,
+        colorbar horizontal,
+        colorbar style={
+            width=0.75\textwidth,
+            height=0.4cm,
+            xticklabel pos=upper,
+            ylabel={},
+            yticklabel={}
+        },
+        point meta min=-2,
+        point meta max=2,
+        clip=false
+    ]
+        % Пустой график для цветовой шкалы
+        \addplot[draw=none] coordinates {(0,0) (1,1)};
+    \end{axis}
+    
+    % Подпись "Энергия" под цветовой шкалой (ещё ниже и дальше от подписей)
+    \node[anchor=north, text=black, font=\small] at (0,-1.3) {Энергия};
+\end{tikzpicture}

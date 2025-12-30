@@ -1,0 +1,48 @@
+\begin{tikzpicture}
+    \begin{axis}[
+        width=0.8\textwidth,
+        height=6cm,
+        xlabel={Состояние $S_1$},
+        ylabel={Состояние $S_2$},
+        title={Траектории в фазовом пространстве},
+        grid=major,
+        legend style={
+            at={(1.02,0.5)},
+            anchor=west,
+            font=\footnotesize,
+            cells={anchor=west, align=left},
+            draw=none,
+            fill=none,
+            row sep=10pt,          % Равные расстояния между элементами
+            text depth=0.5ex,
+            text height=1.5ex,
+            inner sep=2pt,
+            /tikz/every even column/.append style={column sep=5pt}
+        },
+        xmin=-2.5, xmax=2.5,
+        ymin=-2.5, ymax=2.5
+    ]
+        
+        % Асинхронное обновление (сходится к аттрактору)
+        \addplot[red, thick, smooth, domain=0:10, samples=100] 
+            ({2*exp(-x)*cos(deg(2*x))}, {2*exp(-x)*sin(deg(2*x))});
+        
+        % Синхронное обновление (цикл)
+        \addplot[blue, thick, dashed, domain=0:4*pi, samples=100] 
+            ({1.5*cos(deg(x))}, {1.5*sin(deg(x))});
+        
+        % Аттракторы
+        \addplot[only marks, mark=*, mark size=4, red] 
+            coordinates {(0,0)};
+        \addplot[only marks, mark=square*, mark size=4, blue] 
+            coordinates {(1.5,0) (-1.5,0)};
+        
+        % Легенда с равными расстояниями
+        \legend{
+            \shortstack{Асинхронное\\сходимость},
+            \shortstack{Синхронное\\цикл},
+            Аттракторы,
+            Точки цикла
+        }
+    \end{axis}
+\end{tikzpicture}

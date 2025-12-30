@@ -1,0 +1,70 @@
+\begin{tikzpicture}
+    % Основной график
+    \begin{axis}[
+        name=mainplot,
+        width=0.75\textwidth,
+        height=5cm,
+        view={45}{30},
+        xlabel={Параметр 1},
+        ylabel={Параметр 2},
+        zlabel={Энергия $E$},
+        grid=major,
+        colormap/viridis,
+        z buffer=sort,
+        point meta min=-3,
+        point meta max=2,
+        at={(0,0)}
+    ]
+        
+        % 3D поверхность
+        \addplot3[
+            surf,
+            domain=-3:3,
+            domain y=-3:3,
+            samples=20,
+            opacity=0.7
+        ] {x^4 - 2.5*x^2 + y^4 - 2.5*y^2 + 0.3*x*y};
+        
+        % Локальные минимумы
+        \addplot3[
+            only marks, 
+            mark=*, 
+            mark size=3,
+            red,
+            fill=red
+        ] coordinates {
+            (-1.6,-1.6,-3) 
+            (1.6,1.6,-3) 
+            (0,0,-1)
+        };
+        
+    \end{axis}
+    
+    % Цветовая шкала под графиком
+    \begin{axis}[
+        at={(mainplot.below south west)},
+        anchor=north west,
+        width=0.75\textwidth,
+        height=0.8cm,
+        scale only axis,
+        hide axis,
+        colormap/viridis,
+        colorbar horizontal,
+        colorbar style={
+            width=0.75\textwidth,
+            height=0.4cm,
+            xticklabel pos=upper,
+            ylabel={},
+            yticklabel={}
+        },
+        point meta min=-3,
+        point meta max=2,
+        clip=false
+    ]
+        % Пустой график для цветовой шкалы
+        \addplot[draw=none] coordinates {(0,0) (1,1)};
+    \end{axis}
+    
+    % Подпись "Энергия" под цветовой шкалой (ещё ниже и дальше от подписей)
+    \node[anchor=north, text=black, font=\small] at (0,-1.4) {Энергия};
+\end{tikzpicture}

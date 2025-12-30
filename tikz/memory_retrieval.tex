@@ -1,0 +1,41 @@
+\begin{tikzpicture}[scale=0.9]
+    % Основные блоки с надписями внутри
+    \draw[fill=blue!10, rounded corners=0.5cm] (0,0) rectangle (3,2.5);
+    \node[align=center] at (1.5,1.25) {Хранилище\\памяти};
+    
+    \draw[fill=green!10, rounded corners=0.5cm] (5,0) rectangle (8,2.5);
+    \node[align=center] at (6.5,1.25) {Извлечение};
+    
+    % Стрелки между блоками - значительно увеличенное расстояние
+    \draw[->, thick, red] (3,1.25) -- node[above, pos=0.5, font=\small] {Запрос} (5,1.25);
+    
+    % Входные данные
+    \node[draw, rectangle, fill=orange!20, align=center] (input) at (-2,1.25) {Вход: 70\%\\образа};
+    \draw[->, thick, orange] (input) -- (0,1.25);
+    
+    % Выходные данные
+    \node[draw, rectangle, fill=purple!20, align=center] (output) at (10,1.25) {Выход: 100\%\\образ};
+    \draw[->, thick, purple] (8,1.25) -- (output);
+    
+    % Процесс восстановления (внизу) с значительно увеличенным расстоянием
+    \begin{scope}[yshift=-3cm]
+        % Левый паттерн (искаженный)
+        \draw[fill=lightgray] (0,0) grid (2,2) rectangle (0,0);
+        \node[below, align=center, font=\small] at (1,-0.3) {Искаженный\\вход};
+        \node at (0.5,1.5) {\large $-$}; 
+        \node at (1.5,1.5) {\large $+$}; 
+        \node at (0.5,0.5) {\large $+$}; 
+        \node at (1.5,0.5) {\large $-$};
+        
+        % Правый паттерн (восстановленный) - значительно отодвинут
+        \draw[fill=lightgray] (6.5,0) grid (8.5,2) rectangle (6.5,0);
+        \node[below, align=center, font=\small] at (7.5,-0.3) {Восстановленный\\образ};
+        \node at (7,1.5) {\large $+$}; 
+        \node at (8,1.5) {\large $+$}; 
+        \node at (7,0.5) {\large $+$}; 
+        \node at (8,0.5) {\large $+$};
+        
+        % Стрелка восстановления - значительно удлиненная
+        \draw[->, thick, blue] (2.2,1) -- node[above, pos=0.5, align=center, font=\small] {Восстановление} (6.3,1);
+    \end{scope}
+\end{tikzpicture}

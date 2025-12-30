@@ -1,0 +1,40 @@
+\begin{tikzpicture}[
+    neuron/.style={circle, draw, minimum size=0.9cm, fill=blue!20},
+    layer/.style={rectangle, draw, minimum width=1.6cm, minimum height=4.5cm, fill=gray!10, rounded corners=0.2cm},
+    scale=0.75
+]
+    
+    % Входной слой
+    \node[layer] (input) at (0,0) {};
+    \foreach \ni/\y in {1/-1.5, 2/0, 3/1.5}
+        \node[neuron] (i\ni) at (0,\y) {$x_{\ni}$};
+    
+    % Скрытый слой
+    \node[layer] (hidden) at (3.2,0) {};
+    \foreach \nh/\y in {1/-1.5, 2/0, 3/1.5}
+        \node[neuron] (h\nh) at (3.2,\y) {$h_{\nh}$};
+    
+    % Выходной слой
+    \node[layer] (output) at (6.4,0) {};
+    \foreach \no/\y in {1/-1.5, 2/0, 3/1.5}
+        \node[neuron] (o\no) at (6.4,\y) {$y_{\no}$};
+    
+    % Связи вход-скрытый
+    \foreach \ni in {1,2,3}
+        \foreach \nh in {1,2,3}
+            \draw[->, gray!50] (i\ni) -- (h\nh);
+    
+    % Связи скрытый-выход
+    \foreach \nh in {1,2,3}
+        \foreach \no in {1,2,3}
+            \draw[->, gray!50] (h\nh) -- (o\no);
+    
+    % Подписи слоев - ПОДНЯТЫ ВЫШЕ
+    \node[above, align=center, yshift=0.4cm] at (0,2.8) {Входной\\слой};
+    \node[above, align=center, yshift=0.4cm] at (3.2,2.8) {Скрытый\\слой};
+    \node[above, align=center, yshift=0.4cm] at (6.4,2.8) {Выходной\\слой};
+    
+    % Пример весов
+    \draw[->, red, very thick] (i3) -- node[above, sloped, near start] {$w_{12}=0.7$} (h2);
+    \draw[->, blue, very thick] (h2) -- node[above, sloped, near end] {$w_{23}=-0.3$} (o1);
+\end{tikzpicture}

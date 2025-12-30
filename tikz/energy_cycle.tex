@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+    \begin{axis}[
+        width=0.9\textwidth,
+        height=6cm,
+        xlabel={Время (итерации)},
+        ylabel={Энергия $E$},
+        title={Колебания энергии в цикле длины 2},
+        grid=major,
+        xmin=0, xmax=10,
+        ymin=0, ymax=7
+    ]
+        
+        % Энергия в цикле - сильно уменьшаем samples
+        \addplot[red, very thick, domain=0:10, samples=30] 
+            {3 + 2*sin(deg(2*pi*x/2))};
+        
+        % Горизонтальные линии для уровней энергии
+        \draw[dashed, blue] (0,5) -- (10,5);
+        \draw[dashed, blue] (0,1) -- (10,1);
+        \draw[dashed, green] (0,3) -- (10,3);
+        
+        % Подписи для линий
+        \node[right] at (10,5) {$E_{\text{max}}=5$};
+        \node[right] at (10,1) {$E_{\text{min}}=1$};
+        \node[right] at (10,3) {$E_{\text{сред}}=3$};
+        
+    \end{axis}
+\end{tikzpicture}

@@ -1,0 +1,48 @@
+\begin{tikzpicture}[scale=0.7, every node/.style={font=\normalsize}]
+    \def\centerHippo{-2}
+    \def\centerNeural{6} % Сдвигаем правую часть вправо
+
+    % Гиппокамп (слева)
+    \draw[fill=blue!10, rounded corners=0.5cm] (\centerHippo-1.5,-1.5) rectangle (\centerHippo+1.5,1.5);
+    \node[above, align=center] at (\centerHippo,1.5) {Гиппокамп};
+    
+    % Структуры внутри гиппокампа
+    \foreach \x/\y in {0/0, -0.8/0.4, 0.8/0.4, 0/-0.8, -0.6/-0.2, 0.6/-0.2}
+        \draw[fill=red!20] ({\centerHippo+\x},{\y}) circle (0.25);
+
+    % Нейронная сеть (справа) с единой надписью - сдвинута вправо
+    \draw[fill=green!10, rounded corners=0.3cm] (\centerNeural-2,-2) rectangle (\centerNeural+2,2);
+    \node[above, align=center] at (\centerNeural,2) {Нейронная сеть\\с ассоциативными\\связями};
+    
+    % Нейроны в сети
+    \foreach \x in {0.8,2.0,3.2}
+        \foreach \y in {-1.5,-0.5,0.5,1.5}
+            \draw[fill=yellow!30] ({\centerNeural-2+\x},{\y}) circle (0.2);
+    
+    % Серые связи внутри нейронной сети
+    \draw[gray!40, very thin] (\centerNeural-2+0.8,1.5) -- (\centerNeural-2+2.0,0.5) -- (\centerNeural-2+3.2,1.5);
+    \draw[gray!40, very thin] (\centerNeural-2+0.8,-1.5) -- (\centerNeural-2+2.0,-0.5) -- (\centerNeural-2+3.2,-1.5);
+    \draw[gray!40, very thin] (\centerNeural-2+0.8,1.5) -- (\centerNeural-2+2.0,-0.5);
+    \draw[gray!40, very thin] (\centerNeural-2+2.0,0.5) -- (\centerNeural-2+3.2,-1.5);
+    \draw[gray!40, very thin] (\centerNeural-2+0.8,-1.5) -- (\centerNeural-2+2.0,0.5);
+    \draw[gray!40, very thin] (\centerNeural-2+2.0,-0.5) -- (\centerNeural-2+3.2,1.5);
+    
+    % Жирные связи для паттернов
+    \draw[red, thick] (\centerNeural-2+0.8,1.5) -- (\centerNeural-2+2.0,0.5) -- (\centerNeural-2+3.2,1.5);
+    \draw[blue, thick] (\centerNeural-2+0.8,-1.5) -- (\centerNeural-2+2.0,-0.5) -- (\centerNeural-2+3.2,-1.5);
+
+    % Стрелки
+    % 1. Кодирование -> Гиппокамп (удлиненная в 4 раза)
+    \draw[->, thick, blue] (\centerHippo-5.0,0) -- (\centerHippo-1.5,0);
+    \node[blue, above, align=center, yshift=0.1cm] at (\centerHippo-3.25,0) {Кодирование};
+    
+    % 2. Консолидация: Гиппокамп -> Центр памяти (удлиненная и более заметная стрелка)
+    \draw[->, very thick, green!80!black] (\centerHippo,-1.5) -- (\centerHippo,-2.7);
+    \node[green!80!black, left, align=center, xshift=-0.2cm] at (\centerHippo,-2.1) {Консолидация};
+    
+    % 3. Ассоциация: НАЧИНАЕТСЯ ИЗ ГИППОКАМПА (от правого края) и идет к нейронной сети
+    \draw[->, ultra thick, purple] (\centerHippo+1.5,0.5) -- node[above, align=center, pos=0.5] {Ассоциация} (\centerNeural-2,0.5);
+
+    % Подпись под левым блоком
+    \node[below, align=center] at (\centerHippo,-3.2) {Центр\\памяти};
+\end{tikzpicture}

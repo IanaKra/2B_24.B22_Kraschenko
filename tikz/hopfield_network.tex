@@ -1,0 +1,27 @@
+\begin{tikzpicture}[scale=1.0]
+    % Нейроны
+    \foreach \angle/\name in {90/S_1, 0/S_2, -90/S_3, 180/S_4}
+        \node[circle, draw, fill=blue!20, minimum size=1cm] (n\name) at (\angle:2) {$\name$};
+    
+    % Возбуждающие связи (красные) - подписи по середине
+    \draw[red, thick, ->] (nS_1) -- node[above, midway, font=\scriptsize] {$+0.8$} (nS_2);
+    \draw[red, thick, ->] (nS_2) -- node[right, midway, font=\scriptsize] {$+1.2$} (nS_3);
+    \draw[red, thick, ->] (nS_3) -- node[below, midway, font=\scriptsize] {$+0.6$} (nS_4);
+    
+    % Тормозные связи (синие) - подпись по середине
+    \draw[blue, thick, ->] (nS_4) -- node[left, midway, font=\scriptsize] {$-0.5$} (nS_1);
+    
+    % Легенда - помещаем справа от схемы
+    \node[draw, fill=white, rounded corners=0.2cm, font=\scriptsize, align=left, right] at (3,0) {
+        \begin{tabular}{l l}
+            \textcolor{red}{---} & Возбуждающая связь \\
+            & ($J_{ij}>0$) \\
+            \textcolor{blue}{---} & Тормозная связь \\
+            & ($J_{ij}<0$) \\
+            Стрелка $\rightarrow$ & Направление влияния \\
+        \end{tabular}
+    };
+    
+    % Динамика
+    \node[below, font=\small] at (0,-2.5) {Сеть из 4 нейронов с симметричными связями $J_{ij}=J_{ji}$};
+\end{tikzpicture}

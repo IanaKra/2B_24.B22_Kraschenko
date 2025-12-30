@@ -1,0 +1,74 @@
+\begin{tikzpicture}[scale=1.0]
+    
+    % ============ ВЕРХНЯЯ СТРОКА: ЗАПОМНЕННЫЕ ОБРАЗЫ ============
+    
+    % Образ A (слева)
+    \begin{scope}[shift={(0,6)}]
+        \draw[fill=lightgray] (0,0) grid (3,3) rectangle (0,0);
+        \node at (0.5,2.5) {$-$}; \node at (1.5,2.5) {$+$}; \node at (2.5,2.5) {$-$};
+        \node at (0.5,1.5) {$-$}; \node at (1.5,1.5) {$+$}; \node at (2.5,1.5) {$-$};
+        \node at (0.5,0.5) {$-$}; \node at (1.5,0.5) {$+$}; \node at (2.5,0.5) {$-$};
+        \fill[red!20] (1.5,2.5) circle (0.4); \fill[red!20] (1.5,1.5) circle (0.4); \fill[red!20] (1.5,0.5) circle (0.4);
+        \fill[blue!20] (0.5,2.5) circle (0.4); \fill[blue!20] (2.5,2.5) circle (0.4);
+        \fill[blue!20] (0.5,1.5) circle (0.4); \fill[blue!20] (2.5,1.5) circle (0.4);
+        \fill[blue!20] (0.5,0.5) circle (0.4); \fill[blue!20] (2.5,0.5) circle (0.4);
+        \node[above] at (1.5,3.2) {Образ A};
+        \node[below, font=\small] at (1.5,-0.2) {$[-1,+1,-1,-1,+1,-1,-1,+1,-1]$};
+    \end{scope}
+    
+    % Стрелка "Инвертирован" от A к B
+    \draw[->, thick, dashed, red] (3.2,7.5) -- node[above] {Инвертирован} (6.8,7.5);
+    
+    % Образ B (справа)
+    \begin{scope}[shift={(7,6)}]
+        \draw[fill=lightgray] (0,0) grid (3,3) rectangle (0,0);
+        \node at (0.5,2.5) {$+$}; \node at (1.5,2.5) {$-$}; \node at (2.5,2.5) {$+$};
+        \node at (0.5,1.5) {$+$}; \node at (1.5,1.5) {$-$}; \node at (2.5,1.5) {$+$};
+        \node at (0.5,0.5) {$+$}; \node at (1.5,0.5) {$-$}; \node at (2.5,0.5) {$+$};
+        \fill[blue!20] (1.5,2.5) circle (0.4); \fill[blue!20] (1.5,1.5) circle (0.4); \fill[blue!20] (1.5,0.5) circle (0.4);
+        \fill[red!20] (0.5,2.5) circle (0.4); \fill[red!20] (2.5,2.5) circle (0.4);
+        \fill[red!20] (0.5,1.5) circle (0.4); \fill[red!20] (2.5,1.5) circle (0.4);
+        \fill[red!20] (0.5,0.5) circle (0.4); \fill[red!20] (2.5,0.5) circle (0.4);
+        \node[above] at (1.5,3.2) {Образ B};
+        \node[below, font=\small] at (1.5,-0.2) {$[+1,-1,+1,+1,-1,+1,+1,-1,+1]$};
+    \end{scope}
+    
+    % ============ НИЖНЯЯ СТРОКА: ВХОД И ВЫХОД ============
+    
+    % Входной образ (слева)
+    \begin{scope}[shift={(0,0)}]
+        \draw[fill=lightgray] (0,0) grid (3,3) rectangle (0,0);
+        \node at (0.5,2.5) {$-$}; \node at (1.5,2.5) {$+$}; \node at (2.5,2.5) {$-$};
+        \node at (0.5,1.5) {$+$}; \node at (1.5,1.5) {$-$}; \node at (2.5,1.5) {$-$};
+        \node at (0.5,0.5) {$-$}; \node at (1.5,0.5) {$+$}; \node at (2.5,0.5) {$+$};
+        \draw[red, thick, rounded corners=0.2cm] (0.1,1.1) rectangle (0.9,1.9);
+        \draw[red, thick, rounded corners=0.2cm] (1.1,1.1) rectangle (1.9,1.9);
+        \draw[red, thick, rounded corners=0.2cm] (2.1,0.1) rectangle (2.9,0.9); % Исправлено: тоже скруглённые углы
+        \node[above] at (1.5,3.2) {Входной образ};
+        \node[below, font=\small] at (1.5,-0.2) {3 ошибки (33\%)};
+    \end{scope}
+    
+    % Стрелка "Восстановление" от входа к выходу
+    \draw[->, thick, blue] (3.2,1.5) -- node[above] {Восстановление} (6.8,1.5);
+    
+    % Выход сети (справа)
+    \begin{scope}[shift={(7,0)}]
+        \draw[fill=lightgray] (0,0) grid (3,3) rectangle (0,0);
+        \node at (0.5,2.5) {$+$}; \node at (1.5,2.5) {$+$}; \node at (2.5,2.5) {$-$};
+        \node at (0.5,1.5) {$+$}; \node at (1.5,1.5) {$+$}; \node at (2.5,1.5) {$-$};
+        \node at (0.5,0.5) {$+$}; \node at (1.5,0.5) {$-$}; \node at (2.5,0.5) {$-$};
+        \node[above] at (1.5,3.2) {Выход сети};
+        \node[below, font=\small] at (1.5,-0.2) {Ложный аттрактор};
+    \end{scope}
+    
+    % ============ СТРЕЛКИ СРАВНЕНИЯ С ОБРАЗАМИ A и B ============
+    
+    % Стрелка сравнения с Образом A (красная) - подпись смещена влево
+    \draw[<->, red, dashed, thick] (7.5,4.0) -- (2.5,6.0);
+    \node[red, below, left, xshift=-10pt] at (4.5,4.8) {4 ошибки до A};
+    
+    % Стрелка сравнения с Образом B (синяя) - подпись смещена вправо
+    \draw[<->, blue, dashed, thick] (9.5,4.0) -- (8.5,6.0);
+    \node[blue, below, right, xshift=10pt] at (9.0,4.8) {5 ошибок до B};
+    
+\end{tikzpicture}
